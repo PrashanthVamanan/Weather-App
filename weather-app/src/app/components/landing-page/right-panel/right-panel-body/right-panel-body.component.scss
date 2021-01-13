@@ -1,0 +1,11 @@
+ul li {
+  background-color: #00587a;
+  color: #f1f1f1;
+  font-weight: bold;
+  box-shadow: 3px 3px 3px 3px #dddddd;
+  cursor: pointer;
+}
+
+ul li:hover {
+  transform: scale(1.1);
+}
