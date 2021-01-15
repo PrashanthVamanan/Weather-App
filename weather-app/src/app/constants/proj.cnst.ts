@@ -1,3 +1,7 @@
+const apiMapping = {
+  
+}
+
 const landingPageHeaderWeatherIcons = {
   'SUNNY': 'wi-day-sunny',
   'CLOUDY': 'wi-day-cloudy',
@@ -17,6 +21,7 @@ const landingPageFooterWeatherIcons = {
 }
 
 export const WEATHER_APP_CONSTANTS = {
+  API_MAPPING: apiMapping,
   LANDING_PAGE_HEADER_WEATHER_ICONS : landingPageHeaderWeatherIcons,
   LANDING_PAGE_FOOTER_WEATHER_ICONS : landingPageFooterWeatherIcons
 }

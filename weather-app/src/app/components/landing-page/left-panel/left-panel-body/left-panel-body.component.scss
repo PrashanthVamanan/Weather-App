@@ -13,20 +13,44 @@
 }
 
 .ng-select-style {
-  width: 35%;
+  width: 25%;
 }
 
-@media screen and (max-width: 540px) {
-  .weather-text {
-    font-size: 3rem;
-  }
-
-  .forecast-text {
-    font-size: 2rem;
+@media screen and (max-width: 670px) {
+  .geo-info-container {
+    flex-direction: column;
+    align-items: center;
   }
 
   .ng-select-style {
     width: 50%;
+    margin-left: 0;
+    margin-top: 0.75rem !important;
   }
 
+  .search-button {
+    margin-top: 1.25rem !important;
+    width: 35% !important;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .weather-text {
+    font-size: 4rem;
+  }
+
+  .forecast-text {
+    font-size: 3rem;
+  }
+
+  .ng-select-style {
+    width: 60%;
+    margin-left: 0;
+    margin-top: 0.75rem !important;
+  }
+
+  .search-button {
+    margin-top: 1.25rem !important;
+    width: 50% !important;
+  }
 }

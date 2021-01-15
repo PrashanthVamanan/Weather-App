@@ -1,7 +1,25 @@
 <div class="col-xs-12 d-flex flex-column align-items-center justify-content-center left-panel-body-container">
   <p class="weather-text"><strong>Weather</strong></p>
   <p class="forecast-text"><strong>Forecast</strong></p>
-  <ng-select placeholder="Search your city ..." class="ng-select-style">
-  </ng-select>
-  <button class="btn btn-warning w-25 mt-5">Search</button>
+  <div class="col-xs-12 col-lg-12 d-flex justify-content-center mt-2 geo-info-container">
+    <ng-select 
+      [items]="countriesList"
+      placeholder="Select country" 
+      class="ng-select-style mx-2"
+      [virtualScroll]="true">
+    </ng-select>
+    <ng-select 
+      [items]="statesList"
+      placeholder="Select state" 
+      class="ng-select-style mx-2"
+      [virtualScroll]="true">
+    </ng-select>
+    <ng-select 
+      [items]="citiesList"
+      placeholder="Select city" 
+      class="ng-select-style mx-2"
+      [virtualScroll]="true">
+    </ng-select>
+  </div>
+  <button class="btn btn-warning w-25 mt-5 search-button">Search</button>
 </div>
