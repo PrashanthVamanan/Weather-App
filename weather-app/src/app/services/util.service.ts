@@ -16,4 +16,16 @@ export class UtilService {
       return false;
     }
   }
+
+  getBearerTokenFormatForApiRequests(accessToken : any) : any {
+    let options = {};
+
+    if(!isNullOrUndefined(accessToken)) {
+      options['headers'] = { 
+        'Authorization' : `Bearer ${accessToken}`
+      }
+    }
+
+    return options;
+  }
 }

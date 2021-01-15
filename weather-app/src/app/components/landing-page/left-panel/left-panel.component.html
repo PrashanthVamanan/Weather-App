@@ -1,1 +1,6 @@
-<app-left-panel-body></app-left-panel-body>
+<app-left-panel-body
+  *ngIf="countriesList"
+  [countriesList] = "countriesList"
+  (countryWasSelected) = "handleCountrySelection($event)"
+  (stateWasSelected) = "handleStateSelection($event)">
+</app-left-panel-body>

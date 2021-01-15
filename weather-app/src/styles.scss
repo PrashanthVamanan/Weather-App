@@ -9,3 +9,7 @@ body {
 .wi {
   color: #30475e;
 }
+
+:disabled {
+  cursor: not-allowed;
+}

@@ -6,20 +6,25 @@
       [items]="countriesList"
       placeholder="Select country" 
       class="ng-select-style mx-2"
+      [(ngModel)]="selectedCountry"
+      (change)="onCountrySelected()"
       [virtualScroll]="true">
     </ng-select>
     <ng-select 
       [items]="statesList"
       placeholder="Select state" 
       class="ng-select-style mx-2"
+      [(ngModel)]="selectedState"
+      (change)="onStateSelected()"
       [virtualScroll]="true">
     </ng-select>
     <ng-select 
       [items]="citiesList"
       placeholder="Select city" 
       class="ng-select-style mx-2"
+      [(ngModel)]="selectedCity"
       [virtualScroll]="true">
     </ng-select>
   </div>
-  <button class="btn btn-warning w-25 mt-5 search-button">Search</button>
+  <button class="btn btn-warning w-25 mt-5 search-button" [disabled]="!selectedCity">Search</button>
 </div>
