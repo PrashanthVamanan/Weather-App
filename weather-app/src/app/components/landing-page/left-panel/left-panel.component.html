@@ -2,5 +2,7 @@
   *ngIf="countriesList"
   [countriesList] = "countriesList"
   (countryWasSelected) = "handleCountrySelection($event)"
-  (stateWasSelected) = "handleStateSelection($event)">
+  (stateWasSelected) = "handleStateSelection($event)"
+  (cityWasSelected)= "handleCitySelection($event)"
+  (searchButtonWasClicked)="navigateToForecastPage()">
 </app-left-panel-body>

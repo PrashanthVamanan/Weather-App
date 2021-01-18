@@ -7,6 +7,9 @@ import { isNullOrUndefined } from 'util';
 
 export class UtilService {
 
+  latitude: number;
+  longitude: number;
+
   checkIfObjectKeyHasValues(obj: any): boolean {
     if (isNullOrUndefined(obj)) return false;
 
@@ -28,4 +31,22 @@ export class UtilService {
 
     return options;
   }
+
+  getPlaceNameFromCountryStateAndCity(geoInfo: any) : string {
+    let { country, state, city } = geoInfo;
+    return `${city}, ${state}, ${country}`;
+  }
+
+  setLatAndLongForPlaceName(lat: number, long: number) : void {
+    this.latitude = lat;
+    this.longitude = long;
+  }
+
+  getLatAndLongForPlaceName() : any {
+    return {
+      latitude: this.latitude,
+      longitude: this.longitude
+    }
+  }
+
 }

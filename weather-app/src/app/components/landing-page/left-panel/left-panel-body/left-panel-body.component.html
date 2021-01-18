@@ -23,8 +23,9 @@
       placeholder="Select city" 
       class="ng-select-style mx-2"
       [(ngModel)]="selectedCity"
+      (change)="onCitySelected()"
       [virtualScroll]="true">
     </ng-select>
   </div>
-  <button class="btn btn-warning w-25 mt-5 search-button" [disabled]="!selectedCity">Search</button>
+  <button class="btn btn-warning w-25 mt-5 search-button" [disabled]="!selectedCity" (click)="onSearchButtonClicked()">Search</button>
 </div>

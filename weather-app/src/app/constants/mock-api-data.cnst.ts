@@ -1183,8 +1183,34 @@ const citiesInAState = [
   "Zamin Uthukuli"
 ]
 
+const latLongForCountryStateCity = {
+  "data": [
+    {
+      "latitude": 11.052213,
+      "longitude": 78.408526,
+      "type": "region",
+      "name": "Tamil Nadu",
+      "number": null,
+      "postal_code": null,
+      "street": null,
+      "confidence": 0.3,
+      "region": "Tamil Nadu",
+      "region_code": "TN",
+      "county": null,
+      "locality": null,
+      "administrative_area": null,
+      "neighbourhood": null,
+      "country": "India",
+      "country_code": "IND",
+      "continent": "Asia",
+      "label": "Tamil Nadu, India"
+    }
+  ]
+}
+
 export const WEATHER_APP_MOCK_RESPONSE = {
   COUNTRIES_LIST : countriesList,
   STATES_FOR_A_COUNTRY: statesForACountryList,
-  CITIES_FOR_A_STATE: citiesInAState
+  CITIES_FOR_A_STATE: citiesInAState,
+  LAT_LONG_FOR_COUNTRY_STATE_CITY: latLongForCountryStateCity
 }

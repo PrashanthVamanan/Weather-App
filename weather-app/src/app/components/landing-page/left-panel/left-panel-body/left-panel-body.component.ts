@@ -15,6 +15,8 @@ export class LeftPanelBodyComponent implements OnInit, OnDestroy {
 
   @Output() countryWasSelected = new EventEmitter<string>();
   @Output() stateWasSelected = new EventEmitter<string>();
+  @Output() cityWasSelected = new EventEmitter<any>();
+  @Output() searchButtonWasClicked = new EventEmitter<any>();
   
   statesList: any[];
   citiesList: any[];
@@ -46,6 +48,21 @@ export class LeftPanelBodyComponent implements OnInit, OnDestroy {
 
   onStateSelected() {
     this.stateWasSelected.emit(this.selectedState);
+  }
+
+  onCitySelected() {
+
+    let geoInfo = {
+      country: this.selectedCountry,
+      state: this.selectedState,
+      city: this.selectedCity
+     }
+
+    this.cityWasSelected.emit(geoInfo);
+  }
+
+  onSearchButtonClicked() {
+    this.searchButtonWasClicked.emit();
   }
 
   ngOnDestroy() {

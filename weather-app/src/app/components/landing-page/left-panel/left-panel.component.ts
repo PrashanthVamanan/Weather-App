@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { isNullOrUndefined } from 'util';
 import { HttpService } from 'src/app/services/http.service';
@@ -8,7 +9,6 @@ import { WEATHER_APP_API_CONFIG } from '../../../config/api-config';
 import { WEATHER_APP_CONSTANTS } from 'src/app/constants/proj.cnst';
 
 import { UtilService } from 'src/app/services/util.service';
-import { Country } from 'src/app/models/country.model';
 import { WEATHER_APP_MOCK_RESPONSE } from 'src/app/constants/mock-api-data.cnst';
 import { AppStateService } from 'src/app/services/app-state.service';
 
@@ -27,11 +27,15 @@ export class LeftPanelComponent implements OnInit {
   statesList: any[] = [];
   citiesList: any[] = [];
 
+  latitude: number = null;
+  longitude: number = null;
+
   constructor(
+    private router: Router,
     private httpSrv: HttpService,
     private utilSrv: UtilService,
     private appStateSrv: AppStateService,
-    private storageSrv: StorageService,) { }
+    private storageSrv: StorageService) { }
 
   ngOnInit() { 
     this.weatherAppCitiesApiConfig = WEATHER_APP_API_CONFIG.CITIES_API_CONFIG;
@@ -159,5 +163,47 @@ export class LeftPanelComponent implements OnInit {
     //     this.citiesList = response.map(item => item.city_name);
     //     console.log("Cities List ", this.citiesList);
     //   })
+  }
+
+  handleCitySelection(location: any) {
+    let placeName = this.utilSrv.getPlaceNameFromCountryStateAndCity(location);
+    this.getLatLongForPlaceName(placeName);
+  }
+
+  getLatLongForPlaceName(placeName: string) {
+
+    let { access_key, output, limit } =  WEATHER_APP_API_CONFIG.GEOCODING_API_CONFIG;
+
+    let geoCodeOptions = {
+      'queryParams': {
+        query: placeName,
+        output,
+        limit,
+        access_key
+      }
+    }
+
+    let { latitude = null, longitude = null } = WEATHER_APP_MOCK_RESPONSE.LAT_LONG_FOR_COUNTRY_STATE_CITY.data[0];
+
+    if(!isNullOrUndefined(latitude) && !isNullOrUndefined(longitude)) {
+      this.latitude = latitude;
+      this.longitude = longitude;
+    }
+
+    // this.httpSrv
+    //   .makeGetApiCall(
+    //     'GET_LAT_LONG_FOR_PLACE_NAME', 
+    //      WEATHER_APP_CONSTANTS.GEOCODING_BASE_URL,
+    //      geoCodeOptions)
+    //    .subscribe((response: any) => {
+    //      console.log("Lat Long Response ", response);
+    //    }, error => {
+    //      console.log("Error in fetching lat long for placename ", error);
+    //    })
+  }
+
+  navigateToForecastPage() {
+    this.utilSrv.setLatAndLongForPlaceName(this.latitude, this.longitude);
+    this.router.navigate(['', 'forecast']);
   }
 }

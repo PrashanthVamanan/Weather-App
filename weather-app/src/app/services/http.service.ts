@@ -67,7 +67,7 @@ export class HttpService {
 
     for(let key in queryParams) {
       let value = queryParams[key];
-      params.set(key, value);
+      params = params.set(key, value);
     }
 
     return params;

@@ -13,6 +13,7 @@ import { RightPanelComponent } from './components/landing-page/right-panel/right
 import { LeftPanelBodyComponent } from './components/landing-page/left-panel/left-panel-body/left-panel-body.component';
 import { LandingPageHeaderComponent } from './components/landing-page/landing-page-header/landing-page-header.component';
 import { RightPanelBodyComponent } from './components/landing-page/right-panel/right-panel-body/right-panel-body.component';
+import { WeatherForecastComponent } from './components/weather-forecast/weather-forecast.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { RightPanelBodyComponent } from './components/landing-page/right-panel/r
     RightPanelComponent,
     LeftPanelBodyComponent,
     LandingPageHeaderComponent,
-    RightPanelBodyComponent
+    RightPanelBodyComponent,
+    WeatherForecastComponent
   ],
   imports: [
     BrowserModule,
