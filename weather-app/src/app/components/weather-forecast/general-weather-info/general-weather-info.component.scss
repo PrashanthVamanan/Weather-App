@@ -1,0 +1,45 @@
+.place-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.date {
+  font-size: 0.85rem;
+}
+
+.current-temp {
+  position: relative;
+  font-size: 3.5rem;
+  font-weight: 700;
+}
+
+.current-time {
+  font-size: 0.85rem;
+}
+
+.weather-icon {
+  font-size: 3rem;
+}
+
+@media screen and (max-width: 570px) {
+
+  .stats {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem !important;
+  }
+
+  .desc-and-icon {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .desc-and-time {
+    flex-direction: row;
+  }
+
+  .weather-icon {
+    font-size: 2rem;
+  }
+
+}

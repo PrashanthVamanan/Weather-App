@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,10 @@ import { LeftPanelBodyComponent } from './components/landing-page/left-panel/lef
 import { LandingPageHeaderComponent } from './components/landing-page/landing-page-header/landing-page-header.component';
 import { RightPanelBodyComponent } from './components/landing-page/right-panel/right-panel-body/right-panel-body.component';
 import { WeatherForecastComponent } from './components/weather-forecast/weather-forecast.component';
+import { GeneralWeatherInfoComponent } from './components/weather-forecast/general-weather-info/general-weather-info.component';
+import { WEATHER_APP_CONSTANTS } from './constants/proj.cnst';
+import { OtherWeatherStatsComponent } from './components/weather-forecast/other-weather-stats/other-weather-stats.component';
+import { PastDaysForecastComponent } from './components/weather-forecast/past-days-forecast/past-days-forecast.component';
 
 @NgModule({
   declarations: [
@@ -24,13 +29,17 @@ import { WeatherForecastComponent } from './components/weather-forecast/weather-
     LeftPanelBodyComponent,
     LandingPageHeaderComponent,
     RightPanelBodyComponent,
-    WeatherForecastComponent
+    WeatherForecastComponent,
+    GeneralWeatherInfoComponent,
+    OtherWeatherStatsComponent,
+    PastDaysForecastComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     NgSelectModule,
+    NgCircleProgressModule.forRoot(WEATHER_APP_CONSTANTS.NG_CIRCLE_PROGRESS_OPTIONS),
     AppRoutingModule
   ],
   providers: [],

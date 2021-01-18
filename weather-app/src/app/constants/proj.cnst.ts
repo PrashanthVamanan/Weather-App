@@ -26,11 +26,29 @@ const landingPageFooterWeatherIcons = {
 
 const oneDayInMilliSeconds = 60 * 60 * 24 * 1000;
 
+const ngCircleProgressOptions  = {
+  radius: 40,
+  space: -10,
+  outerStrokeWidth: 10,
+  innerStrokeWidth: 8,
+  outerStrokeColor: "#30475e",
+  innerStrokeColor: "silver",
+  animationDuration: 300,
+  titleFontSize: '20',
+  titleFontWeight: '600',
+  unitsFontSize: '10',
+  unitsFontWeight: '300',
+  showSubtitle: false,
+  showZeroOuterStroke: true,
+  // responsive: true
+}
+
 export const WEATHER_APP_CONSTANTS = {
   API_MAPPING: apiMapping,
   CITIES_BASE_URL: 'https://www.universal-tutorial.com/api/',
   GEOCODING_BASE_URL: 'http://api.positionstack.com/v1/',
   LANDING_PAGE_HEADER_WEATHER_ICONS : landingPageHeaderWeatherIcons,
   LANDING_PAGE_FOOTER_WEATHER_ICONS : landingPageFooterWeatherIcons,
-  ONE_DAY_IN_MILLISECONDS: oneDayInMilliSeconds
+  ONE_DAY_IN_MILLISECONDS: oneDayInMilliSeconds,
+  NG_CIRCLE_PROGRESS_OPTIONS: ngCircleProgressOptions
 }

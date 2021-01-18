@@ -11,7 +11,7 @@ export class WeatherForecastComponent implements OnInit {
   constructor(private utilSrv : UtilService) { }
 
   ngOnInit() {
-    console.log(this.utilSrv.getLatAndLongForPlaceName());
+    
   }
 
 }

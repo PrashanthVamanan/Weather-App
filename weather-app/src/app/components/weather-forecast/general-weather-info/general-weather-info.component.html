@@ -1,0 +1,17 @@
+<div class="col-xs-12 d-flex flex-column align-items-center justify-content-center general-info mt-1">
+  <p class="place-name">Belgrade, Serbia</p>
+  <p class="date">{{ currentDate | date: 'E, MMM d y' }}</p>
+  <p class="current-temp">23 &deg; C</p>
+  <div class="col-xs-12 d-flex justify-content-even desc-and-icon">
+    <div class="col-xs-6 d-flex flex-column align-items-center desc-and-time">
+      <p><strong>Partly Sunny</strong></p>
+      <p class="current-time">Updated At: {{ currentDate | date: 'h:mm a' }}</p>
+    </div>
+    <i class="wi wi-day-lightning weather-icon mx-4"></i>
+  </div>
+  <div class="col-xs-12 d-flex justify-content-around mt-1 stats">
+    <p class="mx-2">Pressure: <strong>1009.0 mb</strong></p>
+    <p class="mx-2">Feels like <strong>25 &deg; C </strong></p>
+    <p class="ml-2">Wind Speed: <strong>5.66 m/sec</strong></p>
+  </div>
+</div>

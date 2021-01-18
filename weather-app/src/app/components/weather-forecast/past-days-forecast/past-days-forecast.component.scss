@@ -1,0 +1,30 @@
+.icon-font-size {
+  font-size: 2.5rem;
+}
+
+.temp-text {
+  font-weight: bold;
+}
+
+@media screen and (max-width: 720px) {
+
+  .icon-font-size {
+    font-size: 1.5rem;
+  }
+
+  .temp-text {
+    font-size: 0.9rem;
+  }
+
+  .forecast-container {
+    flex-direction: column;
+  }
+
+  .forecast {
+    flex-direction: row !important;
+    justify-content: space-around;
+    margin: 10px 0px;
+  }
+
+
+}
