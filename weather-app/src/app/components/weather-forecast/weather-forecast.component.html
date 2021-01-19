@@ -1,5 +1,7 @@
-<app-general-weather-info></app-general-weather-info>
-<app-other-weather-stats></app-other-weather-stats>
+<app-general-weather-info
+  [weatherInfo]="formattedWeatherResponse.generalInfo"></app-general-weather-info>
+<app-other-weather-stats
+  [stats]="formattedWeatherResponse.stats"></app-other-weather-stats>
 <div class="d-flex flex-row justify-content-center mt-1">
   <p><strong class="past-forecast">Past 5 Days Forecast</strong></p>
 </div>

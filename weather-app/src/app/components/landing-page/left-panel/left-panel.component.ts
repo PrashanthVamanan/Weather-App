@@ -27,6 +27,8 @@ export class LeftPanelComponent implements OnInit {
   statesList: any[] = [];
   citiesList: any[] = [];
 
+  selectedGeoInfo: string = null;
+
   latitude: number = null;
   longitude: number = null;
 
@@ -166,8 +168,8 @@ export class LeftPanelComponent implements OnInit {
   }
 
   handleCitySelection(location: any) {
-    let placeName = this.utilSrv.getPlaceNameFromCountryStateAndCity(location);
-    this.getLatLongForPlaceName(placeName);
+    this.selectedGeoInfo = this.utilSrv.getPlaceNameFromCountryStateAndCity(location);
+    this.getLatLongForPlaceName(this.selectedGeoInfo);
   }
 
   getLatLongForPlaceName(placeName: string) {
@@ -204,6 +206,7 @@ export class LeftPanelComponent implements OnInit {
 
   navigateToForecastPage() {
     this.utilSrv.setLatAndLongForPlaceName(this.latitude, this.longitude);
+    this.appStateSrv.setSelectedGeoLocation(this.selectedGeoInfo);
     this.router.navigate(['', 'forecast']);
   }
 }

@@ -15,7 +15,7 @@ export class AppStateService {
     this.statesListRef.next(this.statesList);
   }
 
-  getStatesList() {
+  getStatesList(): any[] {
     return this.statesList;
   }
 
@@ -27,7 +27,19 @@ export class AppStateService {
     this.citiesListRef.next(this.citiesList);
   }
 
-  getCitiesList() {
+  getCitiesList(): any[] {
     return this.citiesList;
+  }
+
+  selectedGeoLocation: string = null;
+  selectedGeoLocationRef = new Subject<string>();
+
+  setSelectedGeoLocation(value : string) {
+    this.selectedGeoLocation = value;
+    this.selectedGeoLocationRef.next(this.selectedGeoLocation);
+  }
+
+  getSelectedGeoLocation() : string {
+    return this.selectedGeoLocation;
   }
 }

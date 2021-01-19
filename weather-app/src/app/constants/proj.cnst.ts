@@ -3,7 +3,8 @@ const apiMapping = {
   'GET_ALL_COUNTRIES': 'countries',
   'GET_ALL_STATES_FOR_A_COUNTRY': 'states',
   'GET_ALL_CITIES_FOR_A_STATE': 'cities',
-  'GET_LAT_LONG_FOR_PLACE_NAME': 'forward'
+  'GET_LAT_LONG_FOR_PLACE_NAME': 'forward',
+  'GET_CURRENT_WEATHER_FORECAST': 'onecall'
 }
 
 const landingPageHeaderWeatherIcons = {
@@ -47,6 +48,8 @@ export const WEATHER_APP_CONSTANTS = {
   API_MAPPING: apiMapping,
   CITIES_BASE_URL: 'https://www.universal-tutorial.com/api/',
   GEOCODING_BASE_URL: 'http://api.positionstack.com/v1/',
+  CURRENT_WEATHER_BASE_URL: 'https://api.openweathermap.org/data/2.5/',
+  WEATHER_ICON_BASE_URL: 'http://openweathermap.org/img/wn/',
   LANDING_PAGE_HEADER_WEATHER_ICONS : landingPageHeaderWeatherIcons,
   LANDING_PAGE_FOOTER_WEATHER_ICONS : landingPageFooterWeatherIcons,
   ONE_DAY_IN_MILLISECONDS: oneDayInMilliSeconds,

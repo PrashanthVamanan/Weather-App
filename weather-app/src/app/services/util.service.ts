@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { isNullOrUndefined } from 'util';
+import { WEATHER_APP_CONSTANTS } from '../constants/proj.cnst';
 
 @Injectable({
   providedIn: 'root'
@@ -49,4 +50,35 @@ export class UtilService {
     }
   }
 
+  formatCurrentWeatherInfoResponse(currentGeoLocation: string, response : any) {
+    let formattedResponse = {};
+
+    let { current = null } = response;
+
+    if(!isNullOrUndefined(current)) {
+      let { weather = null, pressure, feels_like, wind_speed, humidity, uvi, dew_point } = current;
+
+      formattedResponse = {
+        generalInfo: {
+          pressure,
+          feels_like,
+          wind_speed,
+         'place': currentGeoLocation,
+          'temp': current.temp,
+          'desc': weather[0].description,
+          'icon': weather[0].icon
+        },
+        stats: {
+          humidity,
+          uvi,
+          dew_point
+        }
+      }
+    }
+    return formattedResponse;
+  }
+
+  getWeatherIconUrl(iconId: string) {
+    return `${WEATHER_APP_CONSTANTS.WEATHER_ICON_BASE_URL}${iconId}@2x.png`;
+  }
 }

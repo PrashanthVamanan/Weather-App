@@ -1,19 +1,19 @@
 <div class="d-flex justify-content-center mt-1">
   <!--Humidity-->
   <div class="d-flex flex-column align-items-center">
-    <circle-progress [percent]="50" [animation]="true"></circle-progress>
+    <circle-progress [percent]="stats.humidity" [animation]="true"></circle-progress>
     <p><strong>Humidity</strong></p>
   </div>
 
   <!--Uv Index-->
   <div class="d-flex flex-column align-items-center">
-    <circle-progress [percent]="3" [showUnits]="false" [animation]="true"></circle-progress>
+    <circle-progress [percent]="stats.uvi" [showUnits]="false" [animation]="true"></circle-progress>
     <p><strong>Uv Index</strong></p>
   </div>
 
   <!--Precipitation-->
   <div class="d-flex flex-column align-items-center">
-    <circle-progress [percent]="10" [animation]="true"></circle-progress>
-    <p><strong>Precipitation</strong></p>
+    <circle-progress [percent]="stats.dew_point" [animation]="true"></circle-progress>
+    <p><strong>Dew</strong></p>
   </div>
 </div>

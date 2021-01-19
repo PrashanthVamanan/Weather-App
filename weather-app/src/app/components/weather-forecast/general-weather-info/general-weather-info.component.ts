@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-general-weather-info',
@@ -7,11 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GeneralWeatherInfoComponent implements OnInit {
 
+  @Input('weatherInfo') weatherInfo : any;
+
   currentDate: Date;
 
-  constructor() { }
+  constructor(private utilSrv: UtilService) { }
 
   ngOnInit() {
+    this.weatherInfo = {... this.weatherInfo, iconUrl: this.utilSrv.getWeatherIconUrl(this.weatherInfo.icon)}
     this.currentDate = new Date();
   }
 
