@@ -81,4 +81,18 @@ export class UtilService {
   getWeatherIconUrl(iconId: string) {
     return `${WEATHER_APP_CONSTANTS.WEATHER_ICON_BASE_URL}${iconId}@2x.png`;
   }
+
+  getUnixTimeStampsOfPastFiveDays() : number[] {
+    let unixTimeStamps = [];
+    let currentDay = new Date();
+    let previousDaysCount = WEATHER_APP_CONSTANTS.NO_OF_PREVIOUS_DAYS;
+
+    for(let i = 1; i <= previousDaysCount; i++) {
+      let previousDay = currentDay.setDate(currentDay.getDate() - i);
+      let previousDayTs = Math.round(previousDay / 1000);
+      unixTimeStamps.push(previousDayTs);
+      currentDay = new Date();
+    }
+    return unixTimeStamps;
+  }
 }

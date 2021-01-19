@@ -22,7 +22,9 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
   currentLocation: string = 'Madurai, Tamilnadu, India'
 
   mockApiResponseForWeatherInfo : any = {};
+  mockApiResponseForPastWeatherInfo: any[] = [];
   formattedWeatherResponse: any = {};
+  pastFiveDaysTimeStamps: any[] = [];
 
   subscriptions: Subscription[] = [];
 
@@ -38,8 +40,11 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
 
     this.latitude = 11.052213;
     this.longitude = 78.408526;
+    this.pastFiveDaysTimeStamps = this.utilSrv.getUnixTimeStampsOfPastFiveDays();
+    console.log(this.pastFiveDaysTimeStamps);
 
     this.fetchWeatherDetailsForLatLong();
+    this.fetchHistoricalWeatherDataForPastFiveDays();
 
     this.subscriptions.push(selectedGeoLocationRef);
   }
@@ -75,8 +80,37 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
     //   })
   }
 
-  ngOnDestroy() {
+  fetchHistoricalWeatherDataForPastFiveDays() {
+    let { appid, units } = WEATHER_APP_API_CONFIG.OPEN_WEATHER_API_CONFIG;
+    let apiCalls = [];
 
+    // this.pastFiveDaysTimeStamps.forEach((timestamp: number) => {
+    //   let options = {
+    //     'queryParams': {
+    //       lat: this.latitude,
+    //       lon: this.longitude,
+    //       dt: timestamp,
+    //       units,
+    //       appid
+    //     }
+    //   }
+
+    //   apiCalls.push(this.httpSrv.makeGetApiCallWithPromise('GET_PREVIOUS_DAYS_WEATHER_FORECAST', WEATHER_APP_CONSTANTS.CURRENT_WEATHER_BASE_URL, options));
+    // })
+
+    // console.log("Api calls here ", apiCalls);
+
+    // Promise.all(apiCalls).then((response : any) => {
+    //   console.log("Response received ", response);
+    // }).catch((err : any) => {
+    //   console.log("Error during multiple api calls ", err);
+    // })
+
+    this.mockApiResponseForPastWeatherInfo = WEATHER_APP_MOCK_RESPONSE.PAST_FIVE_DAYS_FORECAST;
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 
 }

@@ -17,34 +17,18 @@ export class HttpService {
 
   makeGetApiCall(apiEndpoint: string, baseUrl: string, options?: any) : Observable<any> {
     let endpoint = this.getApiEndPoint(apiEndpoint);
-    let paramsObj;
-    let headers;
 
     if(!isNullOrUndefined(endpoint)) {
 
-      let isUrlParamsPresent = this.utilSrv.checkIfObjectKeyHasValues(options['urlParams']);
-      let isQueryParamsPresent = this.utilSrv.checkIfObjectKeyHasValues(options['queryParams']);
-      let isHeadersPresent = this.utilSrv.checkIfObjectKeyHasValues(options['headers']);
-
-      if (isUrlParamsPresent) {
-        endpoint = this.addOptionsToEndPoint(endpoint, options['urlParams']);
-      }
-
-      if (isQueryParamsPresent) {
-        paramsObj = this.addQueryParamsToEndPoint(options['queryParams']);
-      }
-
-      if(isHeadersPresent) {
-        headers = this.addHeadersToRequest(options['headers']);
-      }
+      let { endPoint, headers, paramsObj } = this.buildRequestOptions(endpoint, options);
 
       // console.log("Headers in the request ", headers);
       // console.log("Params in the request ", paramsObj);
       // console.log("Final endpoint of the request ", endpoint);
 
-      return this.http.get(baseUrl + endpoint, {
-        headers: isHeadersPresent ? headers : null,
-        params: isQueryParamsPresent ? paramsObj : null
+      return this.http.get(baseUrl + endPoint, {
+        headers,
+        params: paramsObj
       })
 
     } else {
@@ -52,6 +36,31 @@ export class HttpService {
       return of(null);
     }
 
+  }
+
+  makeGetApiCallWithPromise(apiEndpoint: string, baseUrl: string, options?: any) : Promise<any> {
+    let endpoint = this.getApiEndPoint(apiEndpoint);
+
+    let promise = new Promise((resolve, reject) => {
+      if(!isNullOrUndefined(endpoint)) {
+        let { endPoint, headers, paramsObj } = this.buildRequestOptions(endpoint, options);
+
+        this.http
+        .get(baseUrl + endPoint, {
+          headers,
+          params: paramsObj
+        })
+        .subscribe((response: any) => {
+          resolve(response);
+        }, error => {
+          console.log("Error in fetching resource ", error);
+          reject(error);
+        })
+      } else {
+        reject("Api endpoint should not be null or undefined !");
+      }
+    })
+    return promise;
   }
 
   getApiEndPoint(endpoint: string) : string | null {
@@ -94,4 +103,31 @@ export class HttpService {
     return headers;
   }
 
+  buildRequestOptions(endpoint: string, options: any) {
+    let paramsObj = null;
+    let headers = null;
+
+    let isUrlParamsPresent = this.utilSrv.checkIfObjectKeyHasValues(options['urlParams']);
+    let isQueryParamsPresent = this.utilSrv.checkIfObjectKeyHasValues(options['queryParams']);
+    let isHeadersPresent = this.utilSrv.checkIfObjectKeyHasValues(options['headers']);
+
+    if (isUrlParamsPresent) {
+      endpoint = this.addOptionsToEndPoint(endpoint, options['urlParams']);
+    }
+
+    if (isQueryParamsPresent) {
+      paramsObj = this.addQueryParamsToEndPoint(options['queryParams']);
+    }
+
+    if (isHeadersPresent) {
+      headers = this.addHeadersToRequest(options['headers']);
+    }
+
+    return {
+      endPoint: endpoint,
+      headers,
+      paramsObj
+    }
+
+  }
 }

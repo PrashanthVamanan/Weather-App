@@ -4,7 +4,8 @@ const apiMapping = {
   'GET_ALL_STATES_FOR_A_COUNTRY': 'states',
   'GET_ALL_CITIES_FOR_A_STATE': 'cities',
   'GET_LAT_LONG_FOR_PLACE_NAME': 'forward',
-  'GET_CURRENT_WEATHER_FORECAST': 'onecall'
+  'GET_CURRENT_WEATHER_FORECAST': 'onecall',
+  'GET_PREVIOUS_DAYS_WEATHER_FORECAST': 'onecall/timemachine'
 }
 
 const landingPageHeaderWeatherIcons = {
@@ -26,6 +27,8 @@ const landingPageFooterWeatherIcons = {
 }
 
 const oneDayInMilliSeconds = 60 * 60 * 24 * 1000;
+
+const noOfPreviousDays = 5;
 
 const ngCircleProgressOptions  = {
   radius: 40,
@@ -53,5 +56,6 @@ export const WEATHER_APP_CONSTANTS = {
   LANDING_PAGE_HEADER_WEATHER_ICONS : landingPageHeaderWeatherIcons,
   LANDING_PAGE_FOOTER_WEATHER_ICONS : landingPageFooterWeatherIcons,
   ONE_DAY_IN_MILLISECONDS: oneDayInMilliSeconds,
-  NG_CIRCLE_PROGRESS_OPTIONS: ngCircleProgressOptions
+  NG_CIRCLE_PROGRESS_OPTIONS: ngCircleProgressOptions,
+  NO_OF_PREVIOUS_DAYS: noOfPreviousDays
 }
