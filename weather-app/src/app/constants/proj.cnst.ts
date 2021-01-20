@@ -27,8 +27,8 @@ const landingPageFooterWeatherIcons = {
 }
 
 const oneDayInMilliSeconds = 60 * 60 * 24 * 1000;
-
 const noOfPreviousDays = 5;
+const noOfHoursInADay = 24;
 
 const ngCircleProgressOptions  = {
   radius: 40,
@@ -47,6 +47,18 @@ const ngCircleProgressOptions  = {
   // responsive: true
 }
 
+const dayOfTheWeek = {
+  "0": "Sun",
+  "1": "Mon",
+  "2": "Tue",
+  "3": "Wed",
+  "4": "Thu",
+  "5": "Fri",
+  "6": "Sat"
+}
+
+let useMockData = true;
+
 export const WEATHER_APP_CONSTANTS = {
   API_MAPPING: apiMapping,
   CITIES_BASE_URL: 'https://www.universal-tutorial.com/api/',
@@ -57,5 +69,8 @@ export const WEATHER_APP_CONSTANTS = {
   LANDING_PAGE_FOOTER_WEATHER_ICONS : landingPageFooterWeatherIcons,
   ONE_DAY_IN_MILLISECONDS: oneDayInMilliSeconds,
   NG_CIRCLE_PROGRESS_OPTIONS: ngCircleProgressOptions,
-  NO_OF_PREVIOUS_DAYS: noOfPreviousDays
+  NO_OF_PREVIOUS_DAYS: noOfPreviousDays,
+  NO_OF_HOURS_IN_A_DAY: noOfHoursInADay,
+  DAY_OF_THE_WEEK: dayOfTheWeek,
+  USE_MOCK_DATA: useMockData
 }

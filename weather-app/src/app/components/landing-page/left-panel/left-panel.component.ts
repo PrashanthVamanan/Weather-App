@@ -11,6 +11,7 @@ import { WEATHER_APP_CONSTANTS } from 'src/app/constants/proj.cnst';
 import { UtilService } from 'src/app/services/util.service';
 import { WEATHER_APP_MOCK_RESPONSE } from 'src/app/constants/mock-api-data.cnst';
 import { AppStateService } from 'src/app/services/app-state.service';
+import { Country } from 'src/app/models/country.model';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class LeftPanelComponent implements OnInit {
   citiesList: any[] = [];
 
   selectedGeoInfo: string = null;
+  useMockData: boolean;
 
   latitude: number = null;
   longitude: number = null;
@@ -40,6 +42,7 @@ export class LeftPanelComponent implements OnInit {
     private storageSrv: StorageService) { }
 
   ngOnInit() { 
+    this.useMockData = WEATHER_APP_CONSTANTS.USE_MOCK_DATA;
     this.weatherAppCitiesApiConfig = WEATHER_APP_API_CONFIG.CITIES_API_CONFIG;
     this.getAuthTokenForCitiesApi();
   }
@@ -101,20 +104,21 @@ export class LeftPanelComponent implements OnInit {
   getAllCountries() {
     let options = this.utilSrv.getBearerTokenFormatForApiRequests(this.currentCitiesAccessToken);
 
-    //*Mock data to avoid calling api every time for now
-    this.countriesList = WEATHER_APP_MOCK_RESPONSE.COUNTRIES_LIST;
-
-    // this.httpSrv
-    //   .makeGetApiCall(
-    //     'GET_ALL_COUNTRIES', 
-    //     WEATHER_APP_CONSTANTS.CITIES_BASE_URL,
-    //     options)
-    //   .subscribe((response : Country[]) => {
-    //     this.countriesList = response.map(country => country.country_name);
-    //     console.log("Countries List ", this.countriesList);
-    //   }, error => {
-    //     console.log("Error in fetching countries list ", error);
-    //   })
+    if (this.useMockData) {
+      this.countriesList = WEATHER_APP_MOCK_RESPONSE.COUNTRIES_LIST;
+    } else {
+      this.httpSrv
+        .makeGetApiCall(
+          'GET_ALL_COUNTRIES',
+          WEATHER_APP_CONSTANTS.CITIES_BASE_URL,
+          options)
+        .subscribe((response: Country[]) => {
+          this.countriesList = response.map(country => country.country_name);
+          // console.log("Countries List ", this.countriesList);
+        }, error => {
+          console.log("Error in fetching countries list ", error);
+        })
+    }
   }
 
   handleCountrySelection(country: string) {
@@ -126,21 +130,22 @@ export class LeftPanelComponent implements OnInit {
 
    options = {...options, ...this.utilSrv.getBearerTokenFormatForApiRequests(this.currentCitiesAccessToken)};
 
-   //*Mock data to avoid calling api every time for now
-   this.statesList = WEATHER_APP_MOCK_RESPONSE.STATES_FOR_A_COUNTRY;
-
-   this.appStateSrv.setStatesList(this.statesList);
-
-  //  this.httpSrv
-  //   .makeGetApiCall(
-  //     'GET_ALL_STATES_FOR_A_COUNTRY',
-  //      WEATHER_APP_CONSTANTS.CITIES_BASE_URL,
-  //      options
-  //     )
-  //   .subscribe((response: any[]) => {
-  //     this.statesList = response.map(item => item.state_name);
-  //     console.log("States list ", this.statesList);
-  //   })
+   if(this.useMockData) {
+      this.statesList = WEATHER_APP_MOCK_RESPONSE.STATES_FOR_A_COUNTRY;
+      this.appStateSrv.setStatesList(this.statesList);
+   } else {
+      this.httpSrv
+      .makeGetApiCall(
+        'GET_ALL_STATES_FOR_A_COUNTRY',
+         WEATHER_APP_CONSTANTS.CITIES_BASE_URL,
+         options
+        )
+      .subscribe((response: any[]) => {
+        this.statesList = response.map(item => item.state_name);
+        // console.log("States list ", this.statesList);
+        this.appStateSrv.setStatesList(this.statesList);
+      })
+   }
   }
 
   handleStateSelection(state: string) {
@@ -152,23 +157,26 @@ export class LeftPanelComponent implements OnInit {
 
     options = {...options, ...this.utilSrv.getBearerTokenFormatForApiRequests(this.currentCitiesAccessToken)};
 
-    this.citiesList = WEATHER_APP_MOCK_RESPONSE.CITIES_FOR_A_STATE;
-
-    this.appStateSrv.citiesListRef.next(this.citiesList);
-
-    // this.httpSrv
-    //   .makeGetApiCall(
-    //     'GET_ALL_CITIES_FOR_A_STATE',
-    //     WEATHER_APP_CONSTANTS.CITIES_BASE_URL,
-    //     options)
-    //   .subscribe((response: any[]) => {
-    //     this.citiesList = response.map(item => item.city_name);
-    //     console.log("Cities List ", this.citiesList);
-    //   })
+    if (this.useMockData) {
+      this.citiesList = WEATHER_APP_MOCK_RESPONSE.CITIES_FOR_A_STATE;
+      this.appStateSrv.citiesListRef.next(this.citiesList);
+    } else {
+      this.httpSrv
+        .makeGetApiCall(
+          'GET_ALL_CITIES_FOR_A_STATE',
+          WEATHER_APP_CONSTANTS.CITIES_BASE_URL,
+          options)
+        .subscribe((response: any[]) => {
+          this.citiesList = response.map(item => item.city_name);
+          // console.log("Cities List ", this.citiesList);
+          this.appStateSrv.citiesListRef.next(this.citiesList);
+        })
+    }
   }
 
   handleCitySelection(location: any) {
     this.selectedGeoInfo = this.utilSrv.getPlaceNameFromCountryStateAndCity(location);
+    // console.log("Selected Geo Info ", this.selectedGeoInfo);
     this.getLatLongForPlaceName(this.selectedGeoInfo);
   }
 
@@ -185,27 +193,35 @@ export class LeftPanelComponent implements OnInit {
       }
     }
 
-    let { latitude = null, longitude = null } = WEATHER_APP_MOCK_RESPONSE.LAT_LONG_FOR_COUNTRY_STATE_CITY.data[0];
+    if (this.useMockData) {
+      let mockData = WEATHER_APP_MOCK_RESPONSE.LAT_LONG_FOR_COUNTRY_STATE_CITY.data[0];
+      this.setLatitudeAndLongitude(mockData.latitude, mockData.longitude);
+    } else {
+      this.httpSrv
+        .makeGetApiCall(
+          'GET_LAT_LONG_FOR_PLACE_NAME',
+          WEATHER_APP_CONSTANTS.GEOCODING_BASE_URL,
+          geoCodeOptions)
+        .subscribe((response: any) => {
+          // console.log("Lat Long Response ", response);
+          let latLongResponse = response.data[0];
+          this.setLatitudeAndLongitude(latLongResponse.latitude, latLongResponse.longitude);
+        }, error => {
+          console.log("Error in fetching lat long for placename ", error);
+        })
+    }
+  }
 
+  setLatitudeAndLongitude(latitude: number, longitude: number) {
     if(!isNullOrUndefined(latitude) && !isNullOrUndefined(longitude)) {
       this.latitude = latitude;
       this.longitude = longitude;
     }
-
-    // this.httpSrv
-    //   .makeGetApiCall(
-    //     'GET_LAT_LONG_FOR_PLACE_NAME', 
-    //      WEATHER_APP_CONSTANTS.GEOCODING_BASE_URL,
-    //      geoCodeOptions)
-    //    .subscribe((response: any) => {
-    //      console.log("Lat Long Response ", response);
-    //    }, error => {
-    //      console.log("Error in fetching lat long for placename ", error);
-    //    })
   }
 
   navigateToForecastPage() {
     this.utilSrv.setLatAndLongForPlaceName(this.latitude, this.longitude);
+    // console.log(this.selectedGeoInfo);
     this.appStateSrv.setSelectedGeoLocation(this.selectedGeoInfo);
     this.router.navigate(['', 'forecast']);
   }

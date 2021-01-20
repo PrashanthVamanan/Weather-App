@@ -58,6 +58,8 @@ export class LeftPanelBodyComponent implements OnInit, OnDestroy {
       city: this.selectedCity
      }
 
+    // console.log("Geo Info", geoInfo); 
+
     this.cityWasSelected.emit(geoInfo);
   }
 

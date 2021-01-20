@@ -15,6 +15,7 @@ export class GeneralWeatherInfoComponent implements OnInit {
   constructor(private utilSrv: UtilService) { }
 
   ngOnInit() {
+    // console.log(this.weatherInfo);
     this.weatherInfo = {... this.weatherInfo, iconUrl: this.utilSrv.getWeatherIconUrl(this.weatherInfo.icon)}
     this.currentDate = new Date();
   }

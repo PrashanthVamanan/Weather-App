@@ -1,27 +1,8 @@
+<div class="col-xs-12 col-lg-12 w-100 line"></div>
 <div class="col-xs-12 d-flex justify-content-between px-5 mt-1 forecast-container">
-  <div class="col-xs-2 d-flex flex-column align-items-center forecast">
-    <p><strong>Thu</strong></p>
-    <p class="temp-text">23 &deg; C / 14 &deg; C</p>
-    <i class="wi wi-day-sunny icon-font-size"></i>
-  </div>
-  <div class="col-xs-2 d-flex flex-column align-items-center forecast">
-    <p><strong>Wed</strong></p>
-    <p class="temp-text">23 &deg; C / 14 &deg; C</p>
-    <i class="wi wi-day-fog icon-font-size"></i>
-  </div>
-  <div class="col-xs-2 d-flex flex-column align-items-center forecast">
-    <p><strong>Thu</strong></p>
-    <p class="temp-text">23 &deg; C / 14 &deg; C</p>
-    <i class="wi wi-day-cloudy-gusts icon-font-size"></i>
-  </div>
-  <div class="col-xs-2 d-flex flex-column align-items-center forecast">
-    <p><strong>Thu</strong></p>
-    <p class="temp-text">23 &deg; C / 14 &deg; C</p>
-    <i class="wi wi-night-clear icon-font-size"></i>
-  </div>
-  <div class="col-xs-2 d-flex flex-column align-items-center forecast">
-    <p><strong>Thu</strong></p>
-    <p class="temp-text">23 &deg; C / 14 &deg; C</p>
-    <i class="wi wi-day-snow icon-font-size"></i>
+  <div class="col-xs-2 d-flex flex-column align-items-center forecast" *ngFor="let forecastData of pastDaysForecastData">
+    <p><strong>{{ forecastData.dayOfTheWeek }} ({{forecastData.desc | titlecase}})</strong></p>
+    <p class="temp-text">{{ forecastData.max }} &deg; C / {{ forecastData.min }} &deg; C</p>
+    <img src="{{forecastData.icon_url}}" alt="weather-icon" width="60px" height="60px">
   </div>
 </div>

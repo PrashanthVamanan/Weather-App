@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-past-days-forecast',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PastDaysForecastComponent implements OnInit {
 
-  constructor() { }
+  @Input('pastDaysForecastData') pastDaysForecastData;
+
+  constructor(private utilSrv: UtilService) { }
 
   ngOnInit() {
+    this.addDayOfTheWeekToForecastData();
+  }
+
+  addDayOfTheWeekToForecastData() {
+    this.pastDaysForecastData = this.pastDaysForecastData.map(item => {
+      return {
+        ...item,
+        dayOfTheWeek: this.utilSrv.getDayOfTheWeekFromUnixTimestamp(item.dt)
+      }
+    })
   }
 
 }

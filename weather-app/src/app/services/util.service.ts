@@ -78,6 +78,40 @@ export class UtilService {
     return formattedResponse;
   }
 
+  formatPastFiveDaysWeatherInfoResponse(response: any[]) {
+    let formattedResponse = [];
+
+    response.forEach((record: any) => {
+      let { current, hourly } = record;
+      let { dt, temp, weather } = current;
+      let { icon, description } = weather[0];
+      let avgTemp = this.getAvgTemperatureForTheDay(hourly);
+
+      let previousDay = {
+        dt,
+        max: temp,
+        min: avgTemp,
+        desc: description,
+        icon_url: this.getWeatherIconUrl(icon)
+      }
+
+      formattedResponse.push(previousDay);
+    })
+    return formattedResponse;
+  }
+
+  getAvgTemperatureForTheDay(hourlyTemps: any[]) {
+    let sum = 0;
+    let totalNumberOfRecords = WEATHER_APP_CONSTANTS.NO_OF_HOURS_IN_A_DAY;
+
+    hourlyTemps.forEach((forecast: any) => {
+      let { temp } = forecast;
+      sum += temp;
+    })
+
+    return Math.round(sum / totalNumberOfRecords);
+  }
+
   getWeatherIconUrl(iconId: string) {
     return `${WEATHER_APP_CONSTANTS.WEATHER_ICON_BASE_URL}${iconId}@2x.png`;
   }
@@ -94,5 +128,12 @@ export class UtilService {
       currentDay = new Date();
     }
     return unixTimeStamps;
+  }
+
+  getDayOfTheWeekFromUnixTimestamp(unixTs: number) : string {
+    let actualTs = unixTs * 1000;
+    let actualDate = new Date(actualTs);
+    let actualDayOfTheWeek = actualDate.getDay().toString();
+    return WEATHER_APP_CONSTANTS.DAY_OF_THE_WEEK[actualDayOfTheWeek];
   }
 }
