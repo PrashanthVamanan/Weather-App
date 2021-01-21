@@ -1,3 +1,4 @@
+<app-spinner></app-spinner>
 <app-general-weather-info
   [weatherInfo]="formattedWeatherResponse.generalInfo"
   *ngIf="isCurrentWeatherDataFetched">
@@ -6,6 +7,9 @@
   [stats]="formattedWeatherResponse.stats"
   *ngIf="isCurrentWeatherDataFetched">
 </app-other-weather-stats>
+<div class="col-xs-12 d-flex justify-content-center mt-2 mb-2 another-location">
+  <button type="button" class="btn btn-md button-color" (click)="navigateToLandingPage()">Search Another Location</button>
+</div>
 <div class="d-flex flex-row justify-content-center mt-1">
   <p><strong class="past-forecast">Past 5 Days Forecast</strong></p>
 </div>

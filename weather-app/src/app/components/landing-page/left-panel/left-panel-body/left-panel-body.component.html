@@ -8,7 +8,8 @@
       class="ng-select-style mx-2"
       [(ngModel)]="selectedCountry"
       (change)="onCountrySelected()"
-      [virtualScroll]="true">
+      [virtualScroll]="true"
+      [loading]="isDataLoaded.country">
     </ng-select>
     <ng-select 
       [items]="statesList"
@@ -16,7 +17,8 @@
       class="ng-select-style mx-2"
       [(ngModel)]="selectedState"
       (change)="onStateSelected()"
-      [virtualScroll]="true">
+      [virtualScroll]="true"
+      [loading]="isDataLoaded.state">
     </ng-select>
     <ng-select 
       [items]="citiesList"
@@ -24,7 +26,8 @@
       class="ng-select-style mx-2"
       [(ngModel)]="selectedCity"
       (change)="onCitySelected()"
-      [virtualScroll]="true">
+      [virtualScroll]="true"
+      [loading]="isDataLoaded.city">
     </ng-select>
   </div>
   <button class="btn btn-warning w-25 mt-5 search-button" [disabled]="!selectedCity" (click)="onSearchButtonClicked()">Search</button>

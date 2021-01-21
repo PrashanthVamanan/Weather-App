@@ -1,10 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 import { UtilService } from 'src/app/services/util.service';
 import { HttpService } from 'src/app/services/http.service';
 import { AppStateService } from 'src/app/services/app-state.service';
+
 import { WEATHER_APP_CONSTANTS } from 'src/app/constants/proj.cnst';
 import { WEATHER_APP_API_CONFIG } from 'src/app/config/api-config';
 import { WEATHER_APP_MOCK_RESPONSE } from 'src/app/constants/mock-api-data.cnst';
@@ -36,9 +39,11 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(
+    private router: Router,
     private utilSrv : UtilService,
     private httpSrv : HttpService,
-    private appStateSrv: AppStateService) { }
+    private appStateSrv: AppStateService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
 
@@ -63,6 +68,8 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
 
   fetchWeatherDetailsForLatLong() {
 
+    this.spinner.show();
+
     let { appid, units, exclude } = WEATHER_APP_API_CONFIG.OPEN_WEATHER_API_CONFIG;
 
     let options = {
@@ -78,6 +85,7 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
     if(this.useMockData) {
       this.mockApiResponseForWeatherInfo = WEATHER_APP_MOCK_RESPONSE.WEATHER_INFO_FOR_LAT_LONG;
       this.formattedWeatherResponse = this.utilSrv.formatCurrentWeatherInfoResponse(this.currentLocation, this.mockApiResponseForWeatherInfo);
+      this.spinner.hide();
     } else {
       this.httpSrv
       .makeGetApiCall(
@@ -87,9 +95,11 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
       .subscribe((response : any) => {
         // console.log("Current Location ", this.currentLocation);
         this.isCurrentWeatherDataFetched = true;
+        this.spinner.hide();
         this.formattedWeatherResponse = this.utilSrv.formatCurrentWeatherInfoResponse(this.currentLocation, response);
         // console.log("Formatted Weather Response ", this.formattedWeatherResponse);
       }, error => {
+        this.spinner.hide();
         console.log("Error in fetching weather details for lat long ", error);
       })
     }
@@ -99,9 +109,12 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
     let { appid, units } = WEATHER_APP_API_CONFIG.OPEN_WEATHER_API_CONFIG;
     let apiCalls = [];
 
+    this.spinner.show();
+
     if(this.useMockData) {
       this.mockApiResponseForPastWeatherInfo = WEATHER_APP_MOCK_RESPONSE.PAST_FIVE_DAYS_FORECAST;
       this.formattedPastWeatherResponse = this.utilSrv.formatPastFiveDaysWeatherInfoResponse(this.mockApiResponseForPastWeatherInfo);
+      this.spinner.hide();
     } else {
       this.pastFiveDaysTimeStamps.forEach((timestamp: number) => {
         let options = {
@@ -119,11 +132,17 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
       Promise.all(apiCalls).then((response : any) => {
         // console.log("Response received ", response);
         this.isHistoricalWeatherDataFetched = true;
+        this.spinner.hide();
         this.formattedPastWeatherResponse = this.utilSrv.formatPastFiveDaysWeatherInfoResponse(response);
       }).catch((err : any) => {
+        this.spinner.hide();
         console.log("Error during multiple api calls ", err);
       })
     }
+  }
+
+  navigateToLandingPage() {
+    this.router.navigate(['', 'landing-page']);
   }
 
   ngOnDestroy() {

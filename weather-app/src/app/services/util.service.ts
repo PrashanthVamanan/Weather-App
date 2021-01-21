@@ -113,7 +113,7 @@ export class UtilService {
   }
 
   getWeatherIconUrl(iconId: string) {
-    return `${WEATHER_APP_CONSTANTS.WEATHER_ICON_BASE_URL}${iconId}@2x.png`;
+    return `${WEATHER_APP_CONSTANTS.WEATHER_ICON_BASE_URL}${iconId}.png`;
   }
 
   getUnixTimeStampsOfPastFiveDays() : number[] {

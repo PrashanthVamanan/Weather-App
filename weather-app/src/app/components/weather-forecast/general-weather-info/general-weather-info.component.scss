@@ -1,5 +1,5 @@
 .place-name {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: bold;
 }
 
@@ -9,7 +9,7 @@
 
 .current-temp {
   position: relative;
-  font-size: 3.5rem;
+  font-size: 3rem;
   font-weight: 700;
 }
 
@@ -18,8 +18,7 @@
 }
 
 .weather-icon {
-  margin-top: -25px;
-  // font-size: 3rem;
+  background-color: darkgrey;
 }
 
 @media screen and (max-width: 570px) {

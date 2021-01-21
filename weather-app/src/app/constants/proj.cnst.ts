@@ -47,6 +47,14 @@ const ngCircleProgressOptions  = {
   // responsive: true
 }
 
+const ngxSpinnerOptions = {
+  type: 'ball-clip-rotate-multiple',
+  size: "default",
+  bdColor: 'rgba(211, 211, 211, 0.7)',
+  color: '#30475e',
+  fullScreen: true
+}
+
 const dayOfTheWeek = {
   "0": "Sun",
   "1": "Mon",
@@ -72,5 +80,6 @@ export const WEATHER_APP_CONSTANTS = {
   NO_OF_PREVIOUS_DAYS: noOfPreviousDays,
   NO_OF_HOURS_IN_A_DAY: noOfHoursInADay,
   DAY_OF_THE_WEEK: dayOfTheWeek,
-  USE_MOCK_DATA: useMockData
+  USE_MOCK_DATA: useMockData,
+  NGX_SPINNER_OPTIONS: ngxSpinnerOptions
 }
